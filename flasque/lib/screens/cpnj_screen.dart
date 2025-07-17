@@ -40,8 +40,12 @@ class _ConsultaCnpjPageState extends State<ConsultaCnpjPage> {
         child: AppBar(
           backgroundColor: Color(0xFF181818),
           elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
+          ),
           title: Padding(
-            padding: const EdgeInsets.only(top: 16.0, left: 8.0),
+            padding: const EdgeInsets.only(top: 16.0, left: 0.0),
             child: Text(
               "Consultar CNPJ",
               style: TextStyle(
