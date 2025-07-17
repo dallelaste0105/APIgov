@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './cpnj.dart';
-import './deputados.dart';
+import 'cpnj_screen.dart';
+import 'deputado_screen.dart';
 
 class HomePage extends StatelessWidget {
   @override
