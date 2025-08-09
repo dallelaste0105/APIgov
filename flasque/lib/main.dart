@@ -13,7 +13,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Consulta CNPJ e Deputados',
       theme: ThemeData(
-        primarySwatch: Colors.indigo,
+        primarySwatch: Colors.deepOrange,
+        scaffoldBackgroundColor: const Color(0xFF100C0A),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFFFF7A28),
+            foregroundColor: Colors.white,
+          ),
+        ),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomePage(),
