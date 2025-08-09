@@ -17,7 +17,8 @@ class _ConsultaCnpjPageState extends State<ConsultaCnpjPage> {
       _loading = true;
       _resultado = "";
     });
-    final cnpj = _controller.text.trim();
+    // Remove pontos, traços e espaços da formatação do CNPJ
+    final cnpj = _controller.text.trim().replaceAll(RegExp(r'[.\-/\s]'), '');
     final url = Uri.parse('http://localhost:5000/cnpj/$cnpj');
     final response = await http.get(url);
     setState(() {
@@ -88,7 +89,7 @@ class _ConsultaCnpjPageState extends State<ConsultaCnpjPage> {
                             hintStyle: TextStyle(color: Colors.white54),
                             border: InputBorder.none,
                           ),
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                         ),
                       ),
                       IconButton(
