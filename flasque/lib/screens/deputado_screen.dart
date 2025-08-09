@@ -41,25 +41,51 @@ class _DeputadosPageState extends State<DeputadosPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Buscar Deputados')),
+      appBar: AppBar(
+        title: const Text('Buscar Deputados'),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.white,
+        elevation: 0,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             TextField(
               controller: _controller,
+              style: const TextStyle(color: Colors.white),
+              onSubmitted: (_) => buscarDeputados(),
               decoration: InputDecoration(
                 labelText: 'Nome do deputado',
-                border: OutlineInputBorder(),
+                labelStyle: const TextStyle(color: Colors.white70),
+                border: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: Color(0xFFFF7A28)),
+                ),
+                enabledBorder: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: Color(0xFFFF7A28)),
+                ),
+                focusedBorder: const OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                  borderSide: BorderSide(color: Color(0xFFFF7A28), width: 2),
+                ),
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.search, color: Color(0xFFFF7A28)),
+                  onPressed: buscarDeputados,
+                ),
               ),
             ),
-            const SizedBox(height: 12),
-            ElevatedButton(onPressed: buscarDeputados, child: Text('Buscar')),
             const SizedBox(height: 24),
             _loading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Color(0xFFFF7A28)),
+                )
                 : _deputados.isEmpty
-                ? Text('Nenhum resultado encontrado.')
+                ? const Text(
+                  'Nenhum resultado encontrado.',
+                  style: TextStyle(color: Colors.white),
+                )
                 : Expanded(
                   child: ListView.builder(
                     itemCount: _deputados.length,
