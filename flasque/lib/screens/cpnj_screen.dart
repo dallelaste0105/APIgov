@@ -35,30 +35,11 @@ class _ConsultaCnpjPageState extends State<ConsultaCnpjPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF181818),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70),
-        child: AppBar(
-          backgroundColor: Color(0xFF181818),
-          elevation: 0,
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () => Navigator.of(context).pop(),
-          ),
-          title: Padding(
-            padding: const EdgeInsets.only(top: 16.0, left: 0.0),
-            child: Text(
-              "Consultar CNPJ",
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 28,
-                letterSpacing: 1.2,
-              ),
-            ),
-          ),
-          automaticallyImplyLeading: false,
-        ),
+      appBar: AppBar(
+        title: const Text('Consultar CNPJ'),
+        backgroundColor: Colors.transparent,
+        foregroundColor: Colors.white,
+        elevation: 0,
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -67,42 +48,44 @@ class _ConsultaCnpjPageState extends State<ConsultaCnpjPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // Campo de busca customizado
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: Color(0xFFFF6A00), width: 2),
+                TextField(
+                  controller: _controller,
+                  style: const TextStyle(color: Colors.white),
+                  onSubmitted: (_) => consultarCnpj(),
+                  decoration: InputDecoration(
+                    labelText: 'CNPJ',
+                    labelStyle: const TextStyle(color: Colors.white70),
+                    hintText: "XX.XXX.XXX/0001-XX",
+                    hintStyle: const TextStyle(color: Colors.white54),
+                    border: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      borderSide: BorderSide(color: Color(0xFFFF7A28)),
+                    ),
+                    enabledBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      borderSide: BorderSide(color: Color(0xFFFF7A28)),
+                    ),
+                    focusedBorder: const OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                      borderSide: BorderSide(
+                        color: Color(0xFFFF7A28),
+                        width: 2,
+                      ),
+                    ),
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.search, color: Color(0xFFFF7A28)),
+                      onPressed: _loading ? null : consultarCnpj,
+                    ),
                   ),
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                        child: Icon(Icons.business, color: Color(0xFFFF6A00)),
-                      ),
-                      Expanded(
-                        child: TextField(
-                          controller: _controller,
-                          style: TextStyle(color: Colors.white),
-                          decoration: InputDecoration(
-                            hintText: "XX. XXX. XXX/0001-XX",
-                            hintStyle: TextStyle(color: Colors.white54),
-                            border: InputBorder.none,
-                          ),
-                          keyboardType: TextInputType.text,
-                        ),
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.search, color: Color(0xFFFF6A00)),
-                        onPressed: _loading ? null : consultarCnpj,
-                        splashRadius: 24,
-                      ),
-                    ],
-                  ),
+                  keyboardType: TextInputType.text,
                 ),
                 SizedBox(height: 24),
                 if (_loading)
-                  CircularProgressIndicator(color: Color(0xFFFF6A00)),
+                  const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(
+                      Color(0xFFFF7A28),
+                    ),
+                  ),
                 if (_resultado.isNotEmpty && !_loading)
                   Builder(
                     builder: (context) {
@@ -113,8 +96,12 @@ class _ConsultaCnpjPageState extends State<ConsultaCnpjPage> {
                         width: double.infinity,
                         padding: EdgeInsets.all(24),
                         decoration: BoxDecoration(
-                          color: Color(0xFF232323),
+                          color: const Color(0xFF100C0A),
                           borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                            color: const Color(0xFFFF7A28),
+                            width: 2,
+                          ),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
